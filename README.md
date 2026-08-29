@@ -1,8 +1,31 @@
-# indian-stock-market-predictor
-ML-based prediction dashboard for NIFTY 50 stocks using BiLSTM, ARIMA, CNN-LSTM, GRU,  and LSTM-GRU hybrid models, with crowd-sourced "superforecaster" predictions.  Built for research/educational purposes.
-# Indian Stock Market Predictor
+# India Trading Analyst
 
-A dashboard that predicts NIFTY 50 stock price movement using five ML models 
-(BiLSTM, ARIMA, CNN+LSTM, GRU, LSTM+GRU) and crowd-sourced human forecasts.
+Flask website for an Indian stock market dashboard with Yahoo Finance data, transparent 20-session consensus signals, search/filter controls, stock detail charts, and a methodology page.
 
-⚠️ Educational/research project — not investment advice.
+## Run locally
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+python app.py
+```
+
+Open http://localhost:5000
+
+## Production
+
+```bash
+gunicorn --bind 0.0.0.0:$PORT --workers 1 --threads 4 --timeout 60 app:app
+```
+
+## Routes
+
+- `/` — Market overview
+- `/stocks` — Stock screener
+- `/learn` — Consensus methodology
+- `/api/market` — Market JSON data
+- `/api/market/<symbol>` — Single stock JSON data
+- `/api/healthz` — Health check
+
+Yahoo Finance may temporarily rate-limit requests. When that happens, the UI clearly marks its demo fallback data.

@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0a0e14" />
+    <title>India Trading Analyst</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ base_path }}/static/app.css" />
+  </head>
+  <body data-base-path="{{ base_path }}" data-active-page="{{ active_page }}">
+    <div class="app-shell">
+      <aside class="sidebar">
+        <a class="brand" href="{{ base_path }}/">
+          <span class="brand-mark"><span></span><span></span><span></span></span>
+          <span><strong>INDIA</strong><small>TRADING ANALYST</small></span>
+        </a>
+        <div class="sidebar-label">Workspace</div>
+        <nav class="primary-nav" aria-label="Primary navigation">
+          <a href="{{ base_path }}/" data-nav="dashboard"><span class="nav-icon grid-icon"></span>Market overview</a>
+          <a href="{{ base_path }}/stocks" data-nav="stocks"><span class="nav-icon bars-icon"></span>Stock screener</a>
+          <a href="{{ base_path }}/learn" data-nav="learn"><span class="nav-icon book-icon"></span>How it works</a>
+        </nav>
+        <div class="sidebar-bottom">
+          <div class="status-block">
+            <span class="status-dot"></span>
+            <div><strong>Market feed</strong><span id="sidebar-feed-status">Connecting...</span></div>
+          </div>
+          <div class="sidebar-note">Signals are educational, not investment advice.</div>
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <header class="topbar">
+          <div class="breadcrumbs"><span>Workspace</span><i>/</i><strong id="page-title">Market overview</strong></div>
+          <div class="topbar-actions">
+            <span class="market-state"><span class="pulse"></span><span id="session-label">NSE SESSION</span></span>
+            <span class="last-updated" id="last-updated">Updating...</span>
+            <button class="icon-button" id="refresh-button" title="Refresh market data" aria-label="Refresh market data"><span class="refresh-icon"></span></button>
+          </div>
+        </header>
+
+        <div id="live-view" class="page-view">
+          <section class="intro-row">
+            <div>
+              <p class="eyebrow">SATURDAY, 29 AUGUST 2026 <span class="eyebrow-rule"></span> NIFTY 50</p>
+              <h1>Market overview</h1>
+              <p class="subhead">A concise read on price action, participation, and AI-assisted consensus.</p>
+            </div>
+            <div class="confidence-note"><span class="confidence-icon">i</span><span>Consensus uses the latest 20 trading sessions.</span></div>
+          </section>
+
+          <section class="index-strip">
+            <div class="index-main">
+              <div class="index-heading"><span class="index-logo">N</span><div><span class="data-label">BENCHMARK INDEX</span><strong>NIFTY 50</strong></div></div>
+              <div class="index-price"><strong id="index-price">—</strong><span id="index-change" class="positive">—</span></div>
+            </div>
+            <div class="index-meta"><div><span class="data-label">SESSION</span><strong id="index-session">OPEN</strong></div><div><span class="data-label">SIGNAL COUNT</span><strong id="signal-count">—</strong></div><div><span class="data-label">DATA SOURCE</span><strong id="data-source">—</strong></div></div>
+          </section>
+
+          <section class="section-header">
+            <div><span class="section-kicker">01</span><h2>AI consensus</h2></div>
+            <span class="section-context">Ranked by signal strength</span>
+          </section>
+          <section class="signal-grid" id="signal-grid" aria-live="polite"></section>
+
+          <section class="section-header table-heading">
+            <div><span class="section-kicker">02</span><h2>Market pulse</h2></div>
+            <div class="table-tools"><label class="search-box"><span class="search-icon"></span><input id="stock-search" type="search" placeholder="Search stocks" aria-label="Search stocks" /></label><div class="filter-group" role="group" aria-label="Filter signals"><button class="filter active" data-filter="all">All</button><button class="filter" data-filter="positive">Buy</button><button class="filter" data-filter="negative">Sell</button></div></div>
+          </section>
+          <section class="table-panel">
+            <div class="table-scroll"><table><thead><tr><th>COMPANY</th><th>LAST PRICE</th><th>DAY CHANGE</th><th>20D TREND</th><th>VOLUME VS AVG</th><th>AI CONSENSUS</th><th></th></tr></thead><tbody id="stock-table"></tbody></table></div>
+            <div class="table-footer"><span id="table-count">Showing —</span><span class="table-footnote"><span class="legend-dot"></span> Signals update every 60 seconds</span></div>
+          </section>
+        </div>
+
+        <div id="detail-view" class="page-view hidden">
+          <section class="intro-row detail-intro"><div><p class="eyebrow">STOCK SCREENER <span class="eyebrow-rule"></span> DETAIL VIEW</p><h1 id="detail-title">Stock detail</h1><p class="subhead" id="detail-subhead">Select a stock to inspect its recent price and volume behavior.</p></div><a class="back-link" href="{{ base_path }}/stocks">Back to screener <span>→</span></a></section>
+          <section class="detail-grid"><div class="chart-panel"><div class="panel-head"><div><span class="data-label">20-DAY PRICE ACTION</span><strong id="detail-price">—</strong></div><span id="detail-change" class="change-value">—</span></div><div class="chart-wrap"><svg id="price-chart" viewBox="0 0 800 280" role="img" aria-label="Price chart"></svg></div><div class="chart-axis"><span>20 sessions ago</span><span>10 sessions</span><span>Today</span></div></div><div class="consensus-panel"><div class="panel-head"><span class="data-label">AI CONSENSUS</span><span id="detail-badge" class="signal-badge">—</span></div><div class="score-ring"><span id="detail-score">—</span><small>confidence</small></div><p id="detail-reason">—</p><div class="metric-list"><div><span>Trend</span><strong id="detail-trend">—</strong></div><div><span>Volume vs avg</span><strong id="detail-volume">—</strong></div><div><span>Data source</span><strong id="detail-source">—</strong></div></div></div></section>
+          <section class="method-panel"><div><span class="section-kicker">METHOD</span><h2>How this signal is formed</h2></div><p>The consensus weighs the direction of the 20-session price trend first, then checks whether recent volume confirms the move. Rising price plus expanding volume produces a <strong>Strong Buy</strong>; a negative trend produces <strong>Sell</strong>.</p></section>
+        </div>
+
+        <div id="learn-view" class="page-view hidden">
+          <section class="intro-row"><div><p class="eyebrow">RESEARCH NOTE <span class="eyebrow-rule"></span> METHODOLOGY</p><h1>How it works</h1><p class="subhead">A transparent, rules-based reading of recent market behavior.</p></div></section>
+          <section class="learn-grid"><article><span class="step-number">01</span><h2>Look back 20 sessions</h2><p>Each symbol is evaluated on the latest 20 daily candles, giving the signal enough context to distinguish momentum from a single noisy session.</p></article><article><span class="step-number">02</span><h2>Measure direction</h2><p>The average of the most recent five closes is compared with the first five. This produces a simple trend percentage that is easy to audit.</p></article><article><span class="step-number">03</span><h2>Confirm participation</h2><p>Recent five-day average volume is compared with the first five-day average. Strong Buy requires both upward price action and increased participation.</p></article><article><span class="step-number">04</span><h2>Label the consensus</h2><p>Every outcome is surfaced as Strong Buy, Buy, Hold, or Sell with the inputs shown beside it. Nothing is hidden behind a black-box score.</p></article></section>
+        </div>
+      </main>
+    </div>
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <script src="{{ base_path }}/static/app.js"></script>
+  </body>
+</html>
